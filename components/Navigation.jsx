@@ -12,12 +12,12 @@ const Navigation = () => {
 
   const items = [
     { text: "Home", path: "/" },
-    { text: "Events", path: "/events-previous" },
+    { text: "Events", path: "/events" },
     { text: "Blogs", path: "/blogs" },
     { text: "Gallery", path: "/gallery" },
     { text: "Members", path: "/members" },
-    { text: "About Us", path: "/about" },
-    { text: "Developers", path: "/developer" },
+    { text: "About Us", path: "/aboutus" },
+    { text: "Developers", path: "/developers" },
   ];
 
   // Scroll event listener to change navbar background
@@ -77,6 +77,13 @@ const Navigation = () => {
 
           {/* Contact Button and Sidebar Toggle Button */}
           <div className="flex items-center space-x-4">
+            {/* Sidebar Toggle Button for Mobile */}
+            <button
+              onClick={toggleSidebar}
+              className="text-2xl text-gray-700 hover:text-blue-600"
+            >
+              &#9776;
+            </button>
             <button
               onClick={scrollToContact}
               className="hidden px-4 py-2 text-white bg-blue-600 rounded-xl md:block hover:bg-blue-700"
@@ -84,13 +91,7 @@ const Navigation = () => {
               Contact
             </button>
 
-            {/* Sidebar Toggle Button for Mobile */}
-            <button
-              onClick={toggleSidebar}
-              className="text-2xl text-gray-700 md:hidden hover:text-blue-600"
-            >
-              &#9776;
-            </button>
+
           </div>
         </div>
       </motion.nav>

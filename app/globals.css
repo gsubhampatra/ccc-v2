@@ -2,64 +2,110 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-@keyframes fadeIn {
-    0% {
-      opacity: 0;
+@keyframes fade-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-right {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll-driven animations using scroll() and view() */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    /* Fade-up on scroll */
+    .fade-up {
+      animation: fade-up ease both;
+      animation-timeline: view();
+      animation-range: 1% 30%;
     }
-    100% {
-      opacity: 1;
+
+    /* Fade-left on scroll */
+    .fade-left {
+      animation: fade-left   ease-in-out both;
+      animation-timeline: view();
+      /* animation-range: 3% 35%; */
+    
+
+    }
+
+    /* Fade-right on scroll */
+    .fade-right {
+      animation: fade-right ease-in-out both;
+      animation-timeline: view();
+      animation-range: 3% 35%;
+    }
+
+    /* Fade-down on scroll */
+    .fade-down {
+      animation: fade-down ease-in both;
+      animation-timeline: view();
+      animation-range: 5% 50%;
     }
   }
-  
-  @keyframes slideInLeft {
-    0% {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateX(0);
-      opacity: 1;
-    }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
   }
-  
-  @keyframes slideInUp {
-    0% {
-      transform: translateY(50%);
-      opacity: 0;
-    }
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
+  40% {
+    transform: translateY(-30px);
   }
-  
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
-    }
-    40% {
-      transform: translateY(-30px);
-    }
-    60% {
-      transform: translateY(-15px);
-    }
+  60% {
+    transform: translateY(-15px);
   }
-  
-  /* Tailwind CSS classes to apply animations */
-  .animate-fadeIn {
-    animation: fadeIn 0.8s ease forwards;
+}
+
+/* Tailwind CSS classes to apply animations */
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+
+@layer components{
+  .text-gradient{
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500
   }
-  
-  .animate-slideInLeft {
-    animation: slideInLeft 0.8s ease forwards;
-  }
-  
-  .animate-slideInUp {
-    animation: slideInUp 0.8s ease forwards;
-  }
-  
-  .animate-bounce {
-    animation: bounce 1s infinite;
-  }
-  
+}

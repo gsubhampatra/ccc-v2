@@ -4,9 +4,15 @@ import Link from "next/link";
 import TechWeDrive from "@/components/TechWeDrive";
 import Testimonial from "@/components/Testimonial";
 import logo from "@/public/club_logo.png";
-import { ArrowBigDown, ArrowDown, FacebookIcon, Linkedin, Sidebar, YoutubeIcon } from "lucide-react";
+import { ArrowDown, FacebookIcon, Linkedin, YoutubeIcon } from "lucide-react";
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
+import { motion } from "framer-motion";
 
+const fadeInUp = {
+  initial: { opacity: 0, y: 50 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: "easeOut" },
+};
 export default function Home() {
   return (
     <section className="relative mt-32">
@@ -16,18 +22,18 @@ export default function Home() {
         <Link
           href="https://www.linkedin.com/company/nist-cloud-computing-club"
           target="_blank"
-          className="hover:text-blue-300"
+          className="hover:text-gradient"
         >
-          <Linkedin className="w-8 h-8 text-white" />
+          <Linkedin className="w-8 h-8 text-white duration-100 hover:translate-x-1" />
         </Link>
 
         {/* GitHub */}
         <Link
           href="https://www.github.com/NIST-CCC"
           target="_blank"
-          className="hover:text-blue-300"
+          className="hover:text-gradient"
         >
-          <GitHubLogoIcon className="w-8 h-8 text-white" />
+          <GitHubLogoIcon className="w-8 h-8 text-white duration-100 hover:translate-x-1 " />
         </Link>
 
         {/* Instagram */}
@@ -36,7 +42,7 @@ export default function Home() {
           target="_blank"
           className="hover:text-blue-300"
         >
-          <InstagramLogoIcon className="w-8 h-8 text-white" />
+          <InstagramLogoIcon className="w-8 h-8 text-white duration-100 hover:translate-x-1" />
         </Link>
 
         {/* Facebook */}
@@ -45,7 +51,7 @@ export default function Home() {
           target="_blank"
           className="hover:text-blue-300"
         >
-          <FacebookIcon className="w-8 h-8 text-white" />
+          <FacebookIcon className="w-8 h-8 text-white duration-100 hover:translate-x-1" />
         </Link>
 
         {/* YouTube */}
@@ -54,29 +60,43 @@ export default function Home() {
           target="_blank"
           className="hover:text-blue-300"
         >
-          <YoutubeIcon className="w-8 h-8 text-white" />
+          <YoutubeIcon className="w-8 h-8 text-white duration-100 hover:translate-x-1" />
         </Link>
       </aside>
 
       {/* Main Section */}
       <section className="py-24 text-center">
-        {/* Title */}
-        <div className="animate-fadeIn">
-          <h1 className="font-bold text-7xl">NIST</h1>
-        </div>
+        <div>
+          {/* Title */}
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h1 className="font-bold text-7xl">NIST</h1>
+          </motion.div>
 
-        {/* Subtitle */}
-        <div className="delay-200 animate-slideInLeft">
-          <p className="text-6xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-blue-500 to-purple-500">
-            Cloud Computing Club
-          </p>
-        </div>
+          {/* Subtitle */}
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+          >
+            <p className="text-6xl font-semibold text-gradient">
+              Cloud Computing Club
+            </p>
+          </motion.div>
 
-        {/* Description */}
-        <div className="delay-300 animate-slideInUp">
-          <p className="mt-4 text-xl">
-            An Education Society focused on Cloud and Services at NIST Campus.
-          </p>
+          {/* Description */}
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+          >
+            <p className="mt-4 text-xl">
+              An Education Society focused on Cloud and Services at NIST Campus.
+            </p>
+          </motion.div>
         </div>
 
         {/* Explore Button */}

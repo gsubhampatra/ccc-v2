@@ -4,14 +4,15 @@ const Blogs = () => {
   return (
     <>
       <Head>
+        <title>Blogs | NIST CCC </title>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
         />
       </Head>
       <section className="container blogs">
-        <h1 className="my-20 text-5xl font-bold text-center text-sky-500 ">
-          <span>Blogs</span>
+        <h1 className="my-20 text-5xl font-bold text-center ">
+          <span className="text-gradient">Blogs</span>
         </h1>
         <script
           src="https://static.elfsight.com/platform/platform.js"

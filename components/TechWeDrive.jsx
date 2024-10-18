@@ -29,9 +29,9 @@ const TechWeDrive = () => {
                     alt={item.headTxtBold}
                     width={384}
                     height={384}
-                    className="rounded-lg shadow-lg"
+                    className="rounded-lg shadow-lg fade-left"
                   />
-                  <div className="space-y-4 md:ml-8">
+                  <div className="space-y-4 md:ml-8 fade-right">
                     <h3 className="text-3xl font-bold">
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                         {item.headTxtBold}
@@ -43,7 +43,7 @@ const TechWeDrive = () => {
                 </>
               ) : (
                 <>
-                  <div className="space-y-4 md:mr-8">
+                  <div className="space-y-4 md:mr-8 fade-left">
                     <h3 className="text-3xl font-bold">
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                         {item.headTxtBold}
@@ -57,7 +57,7 @@ const TechWeDrive = () => {
                     alt={item.headTxtBold}
                     width={384}
                     height={384}
-                    className="rounded-lg shadow-lg"
+                    className="rounded-lg shadow-lg fade-right"
                   />
                 </>
               )}
