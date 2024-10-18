@@ -42,10 +42,10 @@ export default function Footer() {
               <span className="text-2xl font-bold">NIST CCC</span>
             </div>
             <nav className="grid grid-cols-2 gap-4">
-              {['Members', 'Events', 'Privacy', 'Tech', 'Blogs', 'Hiring', 'Developers'].map((item) => (
+              {['Members', 'Events', 'Privacy-Policy', 'Tech', 'Blogs', 'Hiring', 'Developers'].map((item) => (
                 <motion.a
                   key={item}
-                  href={`#${item.toLowerCase()}`}
+                  href={`/${item.toLowerCase()}`}
                   className="text-lg transition-colors duration-200 hover:text-blue-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -113,7 +113,7 @@ export default function Footer() {
 
       </footer>
       <div
-        className='p-1 bg-gradient-bg'
+        className='p-1 bg-gradient'
       >
         <p className="text-center text-white">© 2023 NIST CCC. All rights reserved.</p>
       </div>

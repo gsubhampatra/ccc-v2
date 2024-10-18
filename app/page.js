@@ -97,6 +97,13 @@ export default function Home() {
               An Education Society focused on Cloud and Services at NIST Campus.
             </p>
           </motion.div>
+          <div className="absolute flex items-center justify-center w-full my-12 md:items-center -z-10">
+            <img
+              className=" opacity-95 md:h-80 h-52"
+              src="https://chools.in/wp-content/uploads/cloud.gif"
+              alt="cloud"
+            />
+          </div>
         </div>
 
         {/* Explore Button */}

@@ -19,7 +19,7 @@ const Blogs = () => {
           async
         ></script>
         <div
-          class="elfsight-app-af200899-c2c6-4263-b2c7-ef1163330cbf"
+          className="elfsight-app-af200899-c2c6-4263-b2c7-ef1163330cbf"
           data-elfsight-app-lazy
         ></div>
       </section>

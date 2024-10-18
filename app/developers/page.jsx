@@ -35,8 +35,7 @@ const Developer = () => {
         {developers.map((developer, index) => (
           <div
             key={developer.name}
-            className={`bg-white shadow-lg flex items-center flex-col rounded-lg  transform transition-transform duration-300 ease-in-out 
-            delay-${index * 200} hover:scale-105  fade-up`}
+            className="relative flex flex-col items-center justify-center p-2 overflow-hidden border-t-4 rounded-lg shadow-lg border-gradient-bg"
            
           >
             <img
@@ -44,10 +43,10 @@ const Developer = () => {
               alt={developer.name}
               className="object-fill object-center h-48 rounded-full"
             />
-            <div className="p-4">
-              <h1 className="text-xl font-semibold">{developer.name}</h1>
-              <h3 className="font-medium text-gray-600 text-md">{developer.role}</h3>
-              <p className="mt-2 text-gray-700">{developer.description}</p>
+            <div className="relative h-48 p-4 my-2 bg-gradient">
+              <h1 className="text-xl font-semibold text-white">{developer.name}</h1>
+              <h3 className="font-medium text-gray-100 text-md">{developer.role}</h3>
+              <p className="mt-2 text-gray-100">{developer.description}</p>
             </div>
           </div>
         ))}

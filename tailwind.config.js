@@ -8,10 +8,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-bg": "linear-gradient(to right, #348AC7, #7474BF)",
-      },
-
       colors: {
         primary: {
           light: "#7474BF",
