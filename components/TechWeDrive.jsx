@@ -2,7 +2,7 @@ import { tect_data } from '@/lib/data/techDrive'
 
 const TechWeDrive = () => {
   return (
-    <section className="mt-16">
+    <section className="mt-16 ">
       <svg
         className="w-full"
         height="119"
@@ -21,7 +21,7 @@ const TechWeDrive = () => {
         </h2>
         <div className="container px-4 mx-auto">
           {tect_data.map((item, i) => (
-            <div key={item.id} className="flex flex-col items-center gap-8 mb-16 md:flex-row">
+            <div key={item.id} className="flex flex-col items-center gap-8 mb-16 md:flex-row fade-up">
               {i % 2 === 0 ? (
                 <>
                   <img
@@ -29,9 +29,9 @@ const TechWeDrive = () => {
                     alt={item.headTxtBold}
                     width={384}
                     height={384}
-                    className="rounded-lg shadow-lg fade-left"
+                    className="rounded-lg shadow-lg "
                   />
-                  <div className="space-y-4 md:ml-8 fade-right">
+                  <div className="space-y-4 md:ml-8 ">
                     <h3 className="text-3xl font-bold">
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                         {item.headTxtBold}
@@ -43,7 +43,7 @@ const TechWeDrive = () => {
                 </>
               ) : (
                 <>
-                  <div className="space-y-4 md:mr-8 fade-left">
+                  <div className="space-y-4 md:mr-8 fade-up">
                     <h3 className="text-3xl font-bold">
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">
                         {item.headTxtBold}
@@ -57,7 +57,7 @@ const TechWeDrive = () => {
                     alt={item.headTxtBold}
                     width={384}
                     height={384}
-                    className="rounded-lg shadow-lg fade-right"
+                    className="rounded-lg shadow-lg fade-up"
                   />
                 </>
               )}
