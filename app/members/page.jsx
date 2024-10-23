@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Github, Linkedin } from 'lucide-react'
-import { club_member_details } from '@/lib/data/memberDetails'
+import { club_advisor_details, club_member_details } from '@/lib/data/memberDetails'
 import { club_alumni_details } from '@/lib/data/alumniDetails'
 import AOS from 'aos'
 import 'aos/dist/aos.css' // Import AOS styles
@@ -48,7 +48,7 @@ export default function MembersPage() {
       </h1>
       <div className="flex justify-center mb-8 space-x-4" data-aos="fade-up">
         <Button
-           className="rounded-xl"
+          className="rounded-xl"
           onClick={() => setFilter('all')}
           variant={filter === 'all' ? 'default' : 'outline'}
         >
@@ -56,7 +56,7 @@ export default function MembersPage() {
         </Button>
 
         <Button
-                   className="rounded-xl"
+          className="rounded-xl"
 
           onClick={() => setFilter('alumni')}
           variant={filter === 'alumni' ? 'default' : 'outline'}
@@ -66,6 +66,35 @@ export default function MembersPage() {
       </div>
 
       {/* Loop over sorted years and display members */}
+
+      <div className='flex flex-wrap justify-center gap-5' >
+        {
+          club_advisor_details.map((member, index) => (
+            <div key={member.id} className="mb-12" data-aos="fade-up">
+              <h2 className="mb-6 text-2xl font-semibold text-white ">{member.member_type}</h2>
+              <div
+                key={member.id}
+                className="transition-all duration-300 ease-in-out transform hover:scale-105"
+                data-aos="fade-up"
+                data-aos-delay={index * 100} // Staggered delay for items
+              >
+                <Card className="flex flex-col h-full p-6 shadow-md ">
+                  <CardHeader className="flex flex-col items-center space-y-4">
+                    <Avatar className="object-contain w-48 h-48">
+                      <AvatarImage src={member.profile_img} alt={member.fullname} />
+                      <AvatarFallback>{member.firstname[0]}</AvatarFallback>
+                    </Avatar>
+                    <CardTitle className="mt-4 text-center text-gray-800">{member.fullname}</CardTitle>
+                    <Badge className="bg-gradient-to-r from-blue-500 to-purple-500" >{member.member_type}</Badge>
+                  </CardHeader>
+                </Card>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+
       {sortedYears.map(year => (
         <div key={year} className="mb-12" data-aos="fade-up">
           <h2 className="mb-6 text-2xl font-semibold text-white ">Batch {year}</h2>

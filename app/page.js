@@ -15,9 +15,9 @@ const fadeInUp = {
 };
 export default function Home() {
   return (
-    <section className="relative mt-32">
+    <section className="relative mt-8 md:mt-24">
       {/* Social Links */}
-      <aside className="fixed left-0 z-10 flex flex-col items-center p-2 space-y-4 bg-blue-600 rounded-r-xl top-1/2">
+      <aside className="fixed left-0 z-10 flex flex-col items-center p-2 space-y-4 bg-blue-600 rounded-r-xl top-1/3">
         {/* LinkedIn */}
         <Link
           href="https://www.linkedin.com/company/nist-cloud-computing-club"
@@ -73,7 +73,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="font-bold text-7xl">NIST</h1>
+            <h1 className="my-1 text-6xl font-bold md:text-7xl">NIST</h1>
           </motion.div>
 
           {/* Subtitle */}
@@ -82,7 +82,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
-            <p className="text-6xl font-semibold text-gradient">
+            <p className="mb-2 text-5xl font-semibold text-center md:text-6xl text-gradient">
               Cloud Computing Club
             </p>
           </motion.div>
@@ -93,7 +93,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
           >
-            <p className="mt-4 text-xl">
+            <p className="mt-5 text-xl">
               An Education Society focused on Cloud and Services at NIST Campus.
             </p>
           </motion.div>
@@ -107,7 +107,7 @@ export default function Home() {
         </div>
 
         {/* Explore Button */}
-        <div className="mt-6 ease-in-out duration-2000 animate-bounce delay-400">
+        <div className="mt-8 ease-in-out duration-2000 animate-bounce delay-400">
           <button
             onClick={() => window.scrollTo({ top: 800, behavior: "smooth" })}
             className="flex items-center px-6 py-2 mx-auto text-xl text-white rounded-xl bg-gradient-to-r from-blue-500 to-purple-500"

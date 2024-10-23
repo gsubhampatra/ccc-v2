@@ -35,7 +35,7 @@ const Testimonials = () => {
   return (
     <div className="flex flex-col items-center w-full py-12">
       {/* Carousel Container */}
-      <div className="relative w-4/5 md:w-2/3 lg:w-1/2">
+      <div className="relative w-4/5 md:w-2/3 lg:w-1/2 h-[70vh] md:h-[50vh]">
         {/* Current testimonial */}
         {testimonialsData.map((testimonial, index) => (
           <div
@@ -47,7 +47,7 @@ const Testimonials = () => {
             <img
               src={testimonial.image}
               alt={`${testimonial.name}'s picture`}
-              className="w-32 h-32 mx-auto mb-4 rounded-full"
+              className="object-cover w-32 mx-auto mb-4 rounded-full h-36"
             />
             <h3 className="text-xl font-semibold text-gray-800">
               {testimonial.name}
@@ -55,7 +55,7 @@ const Testimonials = () => {
             <h4 className="text-sm font-medium text-gray-500">
               {testimonial.title}
             </h4>
-            <p className="px-6 mt-4 text-base italic text-gray-700">
+            <p className="px-6 mt-4 text-[17px] md:text-lg italic text-gray-700">
               “{testimonial.text}”
             </p>
           </div>
@@ -64,13 +64,13 @@ const Testimonials = () => {
         {/* Navigation buttons */}
         <button
           onClick={prevSlide}
-          className="absolute p-2 text-white transition transform -translate-y-1/2 bg-gray-800 rounded-full top-1/2 left-2 hover:bg-gray-600"
+          className="absolute p-2 text-white transition transform -translate-y-1/2 rounded-full bg-sky-800 top-1/2 left-2 hover:bg-gray-600"
         >
           &lt;
         </button>
         <button
           onClick={nextSlide}
-          className="absolute p-2 text-white transition transform -translate-y-1/2 bg-gray-800 rounded-full top-1/2 right-2 hover:bg-gray-600"
+          className="absolute p-2 text-white transition transform -translate-y-1/2 rounded-full bg-sky-800 top-1/2 right-2 hover:bg-gray-600"
         >
           &gt;
         </button>

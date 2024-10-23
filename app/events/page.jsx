@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Calendar, MapPin, Clock } from 'lucide-react'
 import { eventDetails } from '@/lib/data/eventDetails'
+import Link from 'next/link'
 
 
 export default function EventsPage() {
@@ -67,30 +68,20 @@ export default function EventsPage() {
               </CardContent>
               <CardFooter className="flex items-center justify-between">
                 <Badge variant="secondary">{event.event_type}</Badge>
-                <Button 
-                  onClick={() => setSelectedEvent(selectedEvent === event.id ? null : event.id)}
-                >
-                  {selectedEvent === event.id ? 'Hide Details' : 'Show Details'}
-                </Button>
-              </CardFooter>
-              {selectedEvent === event.id && (
-                <motion.div 
-                  className="px-4 pb-4"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <p className="text-sm text-gray-600">{event.describe}</p>
-                  {event.form_url && (
-                    <Button className="mt-4" variant="outline" asChild>
-                      <a href={event.form_url} target="_blank" rel="noopener noreferrer">
+                {event?.form_url &&  event?.is_registration_open ? (
+                    <Button className="mt-4 text-white transition-all bg-gradient hover:text-sky-50 hover:shadow-lg hover:scale-105"  asChild>
+                      <Link href={event.form_url} target="_blank" rel="noopener noreferrer">
                         Register Now
-                      </a>
+                      </Link>
                     </Button>
-                  )}
-                </motion.div>
-              )}
+                  ):(
+                    <Button className="mt-4" variant="destructive">
+                      Registration Closed
+                    </Button>
+                  )
+                }
+              </CardFooter>
+            
             </Card>
           </motion.div>
         ))}
