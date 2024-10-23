@@ -1,0 +1,101 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Achievement {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  date        DateTime
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model GalleryImage {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl    String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Event {
+  id                  String         @id @default(auto()) @map("_id") @db.ObjectId
+  title               String
+  posterUrl           String
+  description         String
+  registrationLink    String?
+  venue               String
+  date                String?
+  time                String?
+  isRegistrationOpen  Boolean
+  whatsappGroupUrl    String?
+  type                String
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+  registrations       Registration[]
+  winners             Winner[]
+}
+
+model Member {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  bio           String
+  linkedin      String?
+  github        String?
+  profilePhoto  String
+  type          String
+  batch         String
+  designation   String
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  projects      Project[]
+}
+
+model Project {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  description   String
+  githubLink    String
+  liveDemoLink  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  member        Member   @relation(fields: [memberId], references: [id])
+  memberId      String   @db.ObjectId
+}
+
+model Registration {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  email               String
+  registrationDetails Json
+  registeredAt        DateTime @default(now())
+  event               Event    @relation(fields: [eventId], references: [id])
+  eventId             String   @db.ObjectId
+}
+
+model Winner {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  event     Event    @relation(fields: [eventId], references: [id])
+  eventId   String   @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model HiringStatus {
+  id     String  @id @default(auto()) @map("_id") @db.ObjectId
+  status Boolean
+}
+
+model Admin {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  username String @unique
+  password String
+}
