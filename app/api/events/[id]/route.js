@@ -1,34 +1,51 @@
-import { NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
-import { eventSchema } from '@/lib/schemas'
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
-const prisma = new PrismaClient()
+export async function GET(request, { params }) {
+  try {
+    const event = await prisma.event.findUnique({
+      where: { id: await params.id },
+    });
+    if (event) {
+      return NextResponse.json(event);
+    } else {
+      return NextResponse.json({ error: "Event not found" }, { status: 404 });
+    }
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to fetch event" },
+      { status: 500 }
+    );
+  }
+}
 
 export async function PUT(request, { params }) {
-  const { id } = params
-
   try {
-    const body = await request.json()
-    const eventData = eventSchema.parse(body)
-
+    const data = await request.json();
     const updatedEvent = await prisma.event.update({
-      where: { id: id },
-      data: eventData,
-    })
-
-    return NextResponse.json(updatedEvent, { status: 200 })
+      where: { id: await params.id },
+      data,
+    });
+    return NextResponse.json(updatedEvent);
   } catch (error) {
-    if (error.name === 'ZodError') {
-      return NextResponse.json(
-        { error: 'Invalid event data', details: error.errors },
-        { status: 400 }
-      )
-    } else {
-      console.error('Error updating event:', error)
-      return NextResponse.json(
-        { error: 'Error updating event' },
-        { status: 500 }
-      )
-    }
+    return NextResponse.json(
+      { error: "Failed to update event" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request, { params }) {
+  try {
+    const { id } = await params;
+    await prisma.event.delete({
+      where: { id: id },
+    });
+    return new NextResponse(null, { status: 204 });
+  } catch (error) {
+    return NextResponse.json(
+      { error: "Failed to delete event" },
+      { status: 500 }
+    );
   }
 }

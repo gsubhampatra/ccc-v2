@@ -1,69 +1,84 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import { addToEmailQueue } from "@/lib/emailQueue";
 
-export async function POST(request) {
+// Get all registrations
+export async function GET(request) {
   try {
-    const body = await request.json();
-    const { name, email, eventId } = body;
-
-    // Validate input
-    if (!name || !email || !eventId) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
-    }
-
-    // Check if the event exists and is open for registration
-    const event = await prisma.event.findUnique({
-      where: { id: eventId },
+    console.log("Fetching all registrations");
+    const registrations = await prisma.registration.findMany({
+      include: { event: true },
     });
-
-    if (!event) {
-      return NextResponse.json({ error: 'Event not found' }, { status: 404 });
-    }
-
-    if (!event.isRegistrationOpen) {
-      return NextResponse.json({ error: 'Registration is closed for this event' }, { status: 400 });
-    }
-
-    // Create the registration
-    const registration = await prisma.registration.create({
-      data: {
-        name,
-        email,
-        eventId,
-        registrationDetails: {}, // You can add more details here if needed
-      },
-    });
-
-    return NextResponse.json({
-      success: true,
-      message: 'Registered for event successfully.',
-      registration,
-    });
+    return NextResponse.json(registrations);
   } catch (error) {
-    console.error('Registration error:', error);
-    return NextResponse.json({ error: 'Failed to register for event' }, { status: 500 });
+    console.error("Error fetching registrations:", error);
+    return NextResponse.json(
+      { error: error.message || "Failed to fetch registrations" },
+      { status: 500 }
+    );
   }
 }
 
-export async function GET(request) {
+// Register for an event
+export async function POST(request) {
   try {
-    const { searchParams } = new URL(request.url);
-    const eventId = searchParams.get('eventId');
+    const data = await request.json();
+    console.log(data);
+    const registration = await prisma.registration.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        registrationDetails: data.registrationDetails,
+        eventId: data.eventId,
+      },
+      include: { event: true },
+    });
 
-    if (!eventId) {
-      return NextResponse.json({ error: 'Event ID is required' }, { status: 400 });
-    }
-
-    const registrations = await prisma.registration.findMany({
-      where: { eventId },
+    addToEmailQueue({
+      to: registration.email,
+      subject: `Registration Confirmation for ${registration.event.title}`,
+      registrationDetails: registration.registrationDetails,
+      eventDetails: registration.event,
     });
 
     return NextResponse.json({
       success: true,
-      registrations,
+      message: "Registered successfully",
+      registration,
     });
   } catch (error) {
-    console.error('Fetch registrations error:', error);
-    return NextResponse.json({ error: 'Failed to fetch registrations' }, { status: 500 });
+    console.log(error);
+    return NextResponse.json(
+      { success: false, error: "Failed to register for event" },
+      { status: 500 }
+    );
+  }
+}
+
+// Delete all registrations for an event
+export async function DELETE(request) {
+  const { searchParams } = new URL(request.url);
+  const eventId = searchParams.get("eventId");
+
+  if (!eventId) {
+    return NextResponse.json(
+      { success: false, error: "Event ID is required" },
+      { status: 400 }
+    );
+  }
+
+  try {
+    await prisma.registration.deleteMany({
+      where: { eventId: eventId },
+    });
+    return NextResponse.json({
+      success: true,
+      message: "All registrations for the event deleted successfully",
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, error: "Failed to delete registrations" },
+      { status: 500 }
+    );
   }
 }

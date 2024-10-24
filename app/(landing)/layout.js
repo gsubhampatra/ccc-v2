@@ -1,6 +1,8 @@
 // app/layout.js
 import { Inter, Poppins } from "next/font/google";
-import "./globals.css";
+import "@/app/globals.css";
+import Navigation from "@/components/Navigation";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
@@ -15,7 +17,7 @@ export const metadata = {
   image: "https://i.ibb.co/C0DGCkd/111.png",
 };
 
-export default function RootLayout({ children }) {
+export default function LandingLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <link rel="icon" href="https://i.ibb.co/C0DGCkd/111.png" />
@@ -23,7 +25,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} ${poppins.className} overflow-x-hidden`}
       >
+        <Navigation />
         {children}
+        <Footer />
       </body>
     </html>
   );
