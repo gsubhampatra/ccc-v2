@@ -20,19 +20,18 @@ export async function GET() {
 
 export async function POST(request) {
   try {
-    const { title, url } = await request.json();
+    const {  videoId } = await request.json();
 
-    if (!title || !url) {
+    if ( !videoId) {
       return NextResponse.json(
-        { error: "Title and URL are required" },
+        { error: "Video Id is required" },
         { status: 400 }
       );
     }
 
     const newVideo = await prisma.video.create({
       data: {
-        title,
-        url,
+        videoId,
       },
     });
 

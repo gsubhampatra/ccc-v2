@@ -1,5 +1,5 @@
 'use client'
-import { testimonialsData } from "@/lib/data/testimonialsData";
+import { testimonialsData } from "@/data/testimonialsData";
 import { useState, useEffect } from "react";
 
 // Array of testimonial data

@@ -1,4 +1,4 @@
-import { tect_data } from '@/lib/data/techDrive'
+import { tect_data } from '@/data/techDrive'
 
 const TechWeDrive = () => {
   return (

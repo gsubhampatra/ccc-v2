@@ -4,9 +4,11 @@ import { useState, useEffect } from 'react'
 import { getVideos } from '@/lib/api'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import Loader from '@/components/Loader'
 
 export default function VideosPage() {
     const [videos, setVideos] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         AOS.init({
@@ -20,15 +22,19 @@ export default function VideosPage() {
                 setVideos(fetchedVideos)
             } catch (error) {
                 console.error("Failed to fetch videos:", error)
+            } finally {
+                setLoading(false)
             }
         }
 
         fetchVideos()
     }, [])
 
+    if (loading) return <Loader />
+
     return (
         <div className="min-h-screen bg-gray-100 md:pb-28">
-            <header className="py-5 text-white bg-opacity-50 md:py-20 bg-gradient-to-r from-red-700 via-red-500 to-red-400">
+            <header className="py-20 text-white bg-opacity-50 bg-gradient-to-r from-red-700 via-red-500 to-red-400">
                 <div className="container px-4 mx-auto">
                     <h1 className="mb-4 text-4xl font-bold md:text-5xl" data-aos="fade-down">
                         Cloud Computing Club Videos

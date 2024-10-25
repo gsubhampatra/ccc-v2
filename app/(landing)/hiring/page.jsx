@@ -1,18 +1,38 @@
 'use client'
 
-import { useState } from 'react';
+import { getHiringStatus } from '@/lib/api';
+import { useEffect, useState } from 'react';
 
 export default function HiringPage() {
     // Toggle this state to manage hiring open/closed
-    const [isHiringOpen, setIsHiringOpen] = useState(true);
+    const [isHiringOpen, setIsHiringOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(true)
+
+    useEffect(() => {
+        const fetchHiringStatus = async () => {
+            try {
+                const { status } = await getHiringStatus()
+                setIsHiringOpen(status)
+            } catch (error) {
+                console.error('Error fetching hiring status:', error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
+        fetchHiringStatus()
+    }, [])
+
+
 
     return (
         <div className="flex items-center justify-center min-h-[75vh] my-20 bg-slate-50">
+        
             <div className="max-w-2xl p-8 text-center bg-white rounded-lg shadow-lg">
                 {isHiringOpen ? (
                     <div>
                         {/* Hiring Open Section */}
-                        <h1 className="text-5xl font-bold text-gradient">
+                        <h1 className="text-3xl font-bold text-gradient md:text-4xl">
                             Join the Cloud Computing Club
                         </h1>
                         <p className="mt-4 text-lg text-gray-700">
@@ -54,28 +74,14 @@ export default function HiringPage() {
                 ) : (
                     <div>
                         {/* Hiring Closed Section */}
-                        <h1 className="text-5xl font-bold text-transparent text-gradient bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+                        <h1 className="text-3xl font-bold text-transparent md:text-4xl text-gradient bg-clip-text bg-gradient-to-r from-red-500 via-red-500 to-pink-500">
                             Hiring Closed
                         </h1>
                         <p className="mt-4 text-lg text-gray-700">
                             Thank you for your interest in joining the Cloud Computing Club. Currently, we are not hiring. Please check back later!
                         </p>
 
-                        {/* Join Mailing List */}
-                        <p className="mt-6 text-gray-600 text-md">Stay updated for future hiring opportunities:</p>
-                        <form className="mt-4 space-y-4">
-                            <input
-                                type="email"
-                                className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                                placeholder="Enter your email to get notified"
-                            />
-                            <button
-                                type="submit"
-                                className="w-full p-3 mt-4 text-white rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 hover:from-purple-500 hover:to-blue-500"
-                            >
-                                Join Mailing List
-                            </button>
-                        </form>
+                       
                     </div>
                 )}
             </div>

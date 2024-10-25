@@ -1,0 +1,133 @@
+export const eventDetails = [
+  {
+    id: "2",
+    title: "Serverless in Action",
+    posterUrl:
+      "https://www.freecodecamp.org/news/content/images/size/w2000/2022/01/Serverless-computing-768x402-1.png",
+    description:
+      "Microservices architecture is a distributed design approach intended to overcome the limitations of traditional monolithic architectures. Building Cloud Native Application with AWS",
+    registrationLink: null,
+    venue: "Galeria",
+    date: "26-10-2021",
+    time: "",
+    isRegistrationOpen: false,
+    whatsappGroupUrl: null,
+    type: "Previous",
+  },
+  {
+    id: "4",
+    title: "Unlocking the Power of AWS EC2 and S3: A Comprehensive Workshop",
+    posterUrl:
+      "https://bafybeibbeijvb5g6grgxocbtxr4fi7ps4fydifd6xrcug6mymjco3d3j5y.ipfs.w3s.link/pngkey.com-blue-clouds-png-5715694.png",
+    description:
+      "Learn website design and AWS hosting with EC2, S3, and Other Service. Create a functional website to showcase your work and new skills. Learn , Implement & Win exciting prizes",
+    registrationLink: null,
+    venue: "Galeria",
+    date: "14th and 15th November, 2023",
+    time: "",
+    isRegistrationOpen: false,
+    whatsappGroupUrl: null,
+    type: "Previous",
+  },
+  {
+    id: "5",
+    title: "Designing and Hosting Your Portfolio Website with Cloud!",
+    posterUrl:
+      "https://images.ctfassets.net/aoyx73g9h2pg/uiCpQ0yAnqZ7eKddDGB3G/da88b5fa6021bf7b41aa33b80eb6a48f/devops.png",
+    description:
+      "Learn portfolio design and AWS hosting with EC2, S3, and Other Service. Create a functional website to showcase your work and new skills. Learn , Implement & Win exciting prizes",
+    registrationLink: "/events-portfolio",
+    venue: "WIll Update",
+    date: "19th and 20th April, 2023",
+    time: "",
+    isRegistrationOpen: false,
+    whatsappGroupUrl: null,
+    type: "Previous",
+  },
+  {
+    id: "6",
+    title: "GAME EVENT",
+    posterUrl:
+      "https://user-images.githubusercontent.com/70655824/226181911-e2b1c2c3-0654-42a5-a809-ea7d7bf2c0e8.jpg",
+    description: "Update Soon (Stay Tuned). Play & Win exciting prizes",
+    registrationLink: "/events-game",
+    venue: "Galeria",
+    date: "30th and 31th March, 2023",
+    time: "10.30am onwards",
+    isRegistrationOpen: false,
+    whatsappGroupUrl: null,
+    type: "Previous",
+  },
+  {
+    id: "1",
+    title: "Brain Teaser",
+    posterUrl:
+      "https://www.pngkit.com/png/full/26-267054_cloud-puzzle-3d-rendering.png",
+    description:
+      "It is always good to learn more about our brains and to exercise them! Play, Solve & Win exciting prizes",
+    registrationLink: null,
+    venue: "Galeria",
+    date: "26-10-2021",
+    time: "",
+    isRegistrationOpen: false,
+    whatsappGroupUrl: null,
+    type: "Previous",
+  },
+  {
+    id: "3",
+    title: "Cloud Computing Idea Festival",
+    posterUrl:
+      "https://user-images.githubusercontent.com/70655824/226100186-bab08d39-7496-495d-b0f6-ae0f8d869815.jpg",
+    description:
+      "Transform your idea with cloud computing - a flexible, cost-effective, and scalable solution that unlocks unlimited potential. Go ahead of the competition by embracing the power of the cloud. Pitch & Win exciting prizes",
+    registrationLink: null,
+    venue: "Galeria",
+    date: "30th and 31th March, 2023",
+    time: "10.30am onwards",
+    isRegistrationOpen: false,
+    whatsappGroupUrl: null,
+    type: "Previous",
+  },
+  {
+    id: "7",
+    title: "Cloud Computing Idea Festival",
+    posterUrl: "https://i.ibb.co/fk7yzLQ/idea-fest.png",
+    description:
+      "Elevate your minds to the sky with cloud computing. Pitch & Win exciting prizes",
+    registrationLink: "/events-2",
+    venue: "Update Soon",
+    date: "21th and 22th March, 2024",
+    time: "Update Soon",
+    isRegistrationOpen: true,
+    whatsappGroupUrl: "https://chat.whatsapp.com/JHQ1BlOhb3J4U0ktdJpJUZ",
+    type: "Previous",
+  },
+  {
+    id: "8",
+    title: "Poster Competition",
+    posterUrl: "https://i.ibb.co/ZLSWTpT/canva-event.png",
+    description:
+      "Unleash your creativity and design a Poster that speaks volumes! Pitch & Win exciting prizes",
+    registrationLink: "/events-3",
+    venue: "Galeria",
+    date: "21th and 22th March, 2024",
+    time: "Update Soon",
+    isRegistrationOpen: true,
+    whatsappGroupUrl: "https://chat.whatsapp.com/IjuE40TzjIyFTEYdeJ3hrq",
+    type: "Previous",
+  },
+  {
+    id: "9",
+    title: "Battle Royale",
+    posterUrl: "https://i.ibb.co/yVWWWXG/free-fire-min.png",
+    description:
+      "Survival of the fittest: Only one can emerge victorious in this epic battle royale! Pitch & Win exciting prizes",
+    registrationLink: "/events-1",
+    venue: "Galeria 204",
+    date: "21th and 22th March, 2024",
+    time: "Update Soon",
+    isRegistrationOpen: false,
+    whatsappGroupUrl: "https://chat.whatsapp.com/CVkN8Vwzh2AKYFzLwx8S1m",
+    type: "Previous",
+  },
+];
