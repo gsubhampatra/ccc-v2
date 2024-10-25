@@ -74,7 +74,7 @@ const Navigation = () => {
           </div>
 
           {/* Contact Button and Sidebar Toggle Button */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 ">
             {/* Sidebar Toggle Button for Mobile */}
             <Sheet>
               <SheetTrigger asChild>
@@ -82,32 +82,30 @@ const Navigation = () => {
                   &#9776;
                 </button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+              <SheetContent side="left" className="w-[300px] bg-opacity-10 bg-gradient sm:w-[400px]">
                 <SheetTitle>
                   <div className="flex justify-center mb-8">
-                    <div className="p-3 border-b-4 border-blue-600 border-double">
-                      <p className="text-3xl font-bold text-blue-600">
+                    <div className="p-3 border-b-4 border-white border-double">
+                      <p className="text-3xl font-bold text-white">
                         NIST CCC
                       </p>
                     </div>
                   </div>
                 </SheetTitle>
-                <ScrollArea className="h-full">
-                  <div className="p-1">
+                <ScrollArea className="h-full p-3 space-y-2 bg-transparent bg-white rounded-xl bg-opacity-20 ">
 
-                    {/* Sidebar Items */}
-                    <nav className="space-y-4">
-                      {items.map((item, index) => (
-                        <Link
-                          key={index}
-                          href={item.path}
-                          className="block px-4 py-3 text-lg font-semibold text-center text-gray-600 transition-all duration-300 md:text-left md:text-xl rounded-xl hover:bg-gradient hover:text-white"
-                        >
-                          {item.text}
-                        </Link>
-                      ))}
-                    </nav>
-                  </div>
+                  {/* Sidebar Items */}
+                  {items.map((item, index) => (
+                    <SheetTrigger key={index} asChild>
+                      <Link
+                        key={index}
+                        href={item.path}
+                        className="block px-4 py-3 text-lg font-semibold text-center transition-all duration-300 text-slate-50 md:text-left md:text-xl rounded-xl hover:bg-gradient hover:text-white"
+                      >
+                        {item.text}
+                      </Link>
+                    </SheetTrigger>
+                  ))}
                 </ScrollArea>
               </SheetContent>
             </Sheet>
