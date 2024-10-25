@@ -18,9 +18,11 @@ model Achievement {
 }
 
 model GalleryImage {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(uuid()) @map("_id") @db.ObjectId
+  name        String
   imageUrl    String
   description String
+  size        String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -63,7 +65,8 @@ model Project {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   title        String
   description  String
-  githubLink   String
+  imageUrl     String?
+  githubLink   String?
   liveDemoLink String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -100,4 +103,11 @@ model Admin {
   email    String
   name     String
   password String
+}
+
+model Video {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  videoId   String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

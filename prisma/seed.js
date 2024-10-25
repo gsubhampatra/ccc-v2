@@ -1,10 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/prisma/client";
 import { eventDetails } from "../data/eventDetails.js";
 import { club_member_details } from "../data/memberDetails.js";
 import { admin_data } from "../data/memberDetails.js";
 import { club_alumni_details } from "../data/alumniDetails.js";
-
-const prisma = new PrismaClient();
 
 async function main() {
   // Insert events

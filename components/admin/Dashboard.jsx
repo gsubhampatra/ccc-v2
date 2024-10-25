@@ -8,6 +8,8 @@ import Achievements from "./Achievements"
 import GalleryImages from "./GalleryImages"
 import Winners from "./Winners"
 import HiringStatus from "./HiringStatus"
+import Videos from './Videos'
+import Projects from './Projects'
 
 const sections = [
   { name: 'Members', component: MembersSection },
@@ -17,6 +19,8 @@ const sections = [
   { name: 'Gallery Images', component: GalleryImages },
   { name: 'Winners', component: Winners },
   { name: 'Hiring Status', component: HiringStatus },
+  { name: 'Videos', component: Videos },
+  {name:'Projects', component: Projects}
 ]
 
 export default function Dashboard() {
