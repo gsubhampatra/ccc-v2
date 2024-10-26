@@ -54,7 +54,7 @@ model Member {
   profilePhoto String
   type         String
   batch        String
-  domain       String    @default("developer")
+  domain       String
   position     String    @default("member")
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt

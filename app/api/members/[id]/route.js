@@ -3,9 +3,10 @@ import prisma from "@/lib/prisma";
 
 export async function GET(request, { params }) {
   try {
+    const { id } = await params;
     const member = await prisma.member.findUnique({
-      where: { id: await params.id },
-      include: { projects: true }
+      where: { id: id },
+      include: { projects: true },
     });
     if (member) {
       return NextResponse.json({ success: true, member });
@@ -26,9 +27,10 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const data = await request.json();
+    const { id } = await params;
 
     const updatedMember = await prisma.member.update({
-      where: { id: await params.id },
+      where: { id: id },
       data: {
         name: data.name,
         bio: data.bio,

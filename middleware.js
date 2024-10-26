@@ -1,17 +1,22 @@
 import { NextResponse } from "next/server";
-import { clubAdmins } from "./data/clubMembers";
+import { verifyToken } from "./lib/tokenUtils";
+
 export async function middleware(request) {
-  const token = request.cookies.get("ccc-token")?.value;
+  const token = request.cookies.get("token")?.value;
 
   if (request.nextUrl.pathname.startsWith("/admin")) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
     } else {
-      const isAdmin = clubAdmins.find((admin) => admin.email === token);
-      if (!isAdmin) {
+      try {
+        const { verified } = verifyToken(token);
+        if (!verified) {
+          return NextResponse.redirect(new URL("/login", request.url));
+        }
+        return NextResponse.next();
+      } catch {
         return NextResponse.redirect(new URL("/login", request.url));
       }
-      return NextResponse.next();
     }
   }
 
@@ -19,5 +24,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };

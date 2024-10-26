@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { generateToken } from "@/lib/tokenUtils";
 
 export async function POST(request) {
   try {
@@ -12,13 +13,14 @@ export async function POST(request) {
         { status: 401 }
       );
     }
-    const token = admin.email;
+
+    const token = generateToken({ id: admin.id, email: admin.email });
 
     const response = NextResponse.json({
       success: true,
       message: "Logged in successfully",
     });
-    response.cookies.set("ccc-token", token, {
+    response.cookies.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     });

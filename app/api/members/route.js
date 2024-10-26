@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma";
 export async function GET() {
   try {
     const members = await prisma.member.findMany({
-      include: { projects: true }
+      include: { projects: true },
     });
     return NextResponse.json({ success: true, members });
   } catch (error) {
@@ -18,6 +18,13 @@ export async function GET() {
 export async function POST(request) {
   try {
     const data = await request.json();
+    // Extract github username from URL if present
+    const githubUsername = data.github ? data.github.split("/").pop() : "";
+
+    // Set profile photo URL using github username if available
+    if (githubUsername) {
+      data.profilePhoto = `https://avatars.githubusercontent.com/${githubUsername}`;
+    }
     const member = await prisma.member.create({
       data: {
         name: data.name,
@@ -27,7 +34,7 @@ export async function POST(request) {
         profilePhoto: data.profilePhoto,
         type: data.type,
         batch: data.batch,
-        designation: data.designation,
+        domain: data.domain,
       },
     });
     return NextResponse.json({
