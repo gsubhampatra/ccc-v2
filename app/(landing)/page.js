@@ -7,6 +7,7 @@ import logo from "@/public/club_logo.png";
 import { ArrowDown, FacebookIcon, Linkedin, YoutubeIcon } from "lucide-react";
 import { GitHubLogoIcon, InstagramLogoIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
+import IconCloud from "@/components/ui/icon-cloud";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 50 },
@@ -132,10 +133,25 @@ export default function Home() {
 
       {/* Technology Section */}
       <TechWeDrive />
-
+      <div className="flex flex-col items-center justify-center bg-transparent md:flex-row md:justify-around">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="mb-4 text-4xl font-bold text-gradient">
+            Tools we use
+          </h1>
+          <p className="max-w-2xl mb-8 text-lg text-center text-gray-600">
+            We leverage industry-standard tools and technologies to build modern
+            cloud solutions. Our tech stack includes leading cloud platforms,
+            development frameworks, and collaboration tools that enable us to
+            deliver robust and scalable applications.
+          </p>
+        </div>
+        <div className="flex items-center justify-center shadow-current ">
+          <IconCloud className="z-[10]" />
+        </div>
+      </div>
       {/* Testimonial Section */}
       <section className="py-12">
-        <h2 className="mb-8 text-4xl font-bold text-center">Testimonials</h2>
+        <h2 className="mb-8 text-4xl font-bold text-center text-gradient">Testimonials</h2>
         <Testimonial />
       </section>
     </section>
