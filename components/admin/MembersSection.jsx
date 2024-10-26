@@ -130,7 +130,7 @@ export default function MembersSection() {
                                 name="domain"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Designation</FormLabel>
+                                        <FormLabel>Domain</FormLabel>
                                         <FormControl>
                                             <Input placeholder="Member Domain" {...field} />
                                         </FormControl>

@@ -28,7 +28,11 @@ export async function PUT(request, { params }) {
   try {
     const data = await request.json();
     const { id } = await params;
+    const githubUsername = data.github ? data.github.split("/").pop() : "";
 
+    if (githubUsername) {
+      data.profilePhoto = `https://avatars.githubusercontent.com/${githubUsername}`;
+    }
     const updatedMember = await prisma.member.update({
       where: { id: id },
       data: {
@@ -39,7 +43,8 @@ export async function PUT(request, { params }) {
         profilePhoto: data.profilePhoto,
         type: data.type,
         batch: data.batch,
-        designation: data.designation,
+        domain: data.domain,
+        position: data.position,
       },
     });
     return NextResponse.json({

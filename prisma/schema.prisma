@@ -55,7 +55,7 @@ model Member {
   type         String
   batch        String
   domain       String
-  position     String    @default("member")
+  position     String    @default("Core Member")
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   projects     Project[]
