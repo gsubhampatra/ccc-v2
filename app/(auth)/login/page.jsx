@@ -12,6 +12,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [loading, setLoading] = useState(false)
+    const [showLogin, setShowLogin] = useState(false)
     const router = useRouter()
 
     const handleSubmit = async (e) => {
@@ -25,18 +26,27 @@ export default function LoginPage() {
             })
             const data = await response.json()
 
-
             if (data.success === true) {
                 router.push('/admin')
             } else {
                 toast({ title: "Error", description: data.message, variant: "destructive" })
-
             }
         } catch (error) {
             toast({ title: "Error", description: "An error occurred", variant: "destructive" })
         } finally {
             setLoading(false)
         }
+    }
+
+    if (!showLogin) {
+        return (
+            <div
+                className="flex items-center justify-center min-h-screen bg-black"
+
+            >
+                <div onDoubleClick={() => setShowLogin(true)}  className="text-2xl text-gray-100 font-mono select-none">404 Not Found</div>
+            </div>
+        )
     }
 
     return (

@@ -16,6 +16,24 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  if (typeof window !== "undefined") {
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+    document.addEventListener("keydown", (e) => {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
+        (e.ctrlKey && e.key === "U")
+      ) {
+        e.preventDefault();
+      }
+    });
+
+    // Clear console
+    console.clear();
+    // Disable console.log and other console methods
+    console.log = console.warn = console.error = () => {};
+  }
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <link rel="icon" href="https://i.ibb.co/C0DGCkd/111.png" />
