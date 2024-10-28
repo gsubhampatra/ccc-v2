@@ -7,18 +7,26 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/hooks/use-toast"
-// import { eventDetails } from '@/lib/data/eventDetails'
+import { Confetti } from "@/components/ui/confetti"
 
 export default function EventRegistrationPage() {
     const params = useParams()
     const router = useRouter()
     const [loading, setLoading] = useState(false)
     const [event, setEvent] = useState(null)
+    const [registered, setRegistered] = useState(false)
+    const [registrationData, setRegistrationData] = useState(null)
 
     useEffect(() => {
         const currentEvent = params.id
         if (currentEvent) {
             setEvent(currentEvent)
+            // Check if already registered
+            const storedRegistrations = JSON.parse(localStorage.getItem('eventRegistrations') || '{}')
+            if (storedRegistrations[currentEvent]) {
+                setRegistered(true)
+                setRegistrationData(storedRegistrations[currentEvent])
+            }
         } else {
             router.push('/events')
         }
@@ -30,7 +38,7 @@ export default function EventRegistrationPage() {
 
         try {
             const formData = new FormData(e.target)
-            const registrationData = {
+            const newRegistrationData = {
                 eventId: params.id,
                 name: formData.get('name'),
                 email: formData.get('email'),
@@ -40,27 +48,33 @@ export default function EventRegistrationPage() {
                     batch: formData.get('batch'),
                     rollno: formData.get('rollno'),
                 },
+                timestamp: new Date().toISOString()
             }
 
-            // Make an API call to save the registration
             const response = await fetch('/api/registrations', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(registrationData),
+                body: JSON.stringify(newRegistrationData),
             })
 
             if (!response.ok) {
                 throw new Error('Registration failed')
             }
 
+            // Save to localStorage
+            const storedRegistrations = JSON.parse(localStorage.getItem('eventRegistrations') || '{}')
+            storedRegistrations[params.id] = newRegistrationData
+            localStorage.setItem('eventRegistrations', JSON.stringify(storedRegistrations))
+
+            setRegistrationData(newRegistrationData)
+            setRegistered(true)
+
             toast({
                 title: "Registration Successful",
                 description: "You have been successfully registered for the event.",
             })
-
-            router.push('/events')
 
         } catch (error) {
             toast({
@@ -77,12 +91,46 @@ export default function EventRegistrationPage() {
         return <div>Loading...</div>
     }
 
+    if (registered && registrationData) {
+        return (
+            <div className="min-h-screen p-8 bg-blue-50">
+                <Confetti />
+                <Card className="max-w-2xl mx-auto my-8 shadow-xl md:my-20">
+                    <CardHeader>
+                        <CardTitle className="text-3xl text-gradient">Registration Successful!</CardTitle>
+                        <hr className='border-2 border-blue-500' />
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                        <div className="p-4 text-center rounded-lg bg-gradient">
+                            <h3 className="mb-4 text-xl font-semibold text-white">Registration Details</h3>
+                            <div className="text-left text-white">
+                                <p><span className="font-semibold">Name:</span> {registrationData.name}</p>
+                                <p><span className="font-semibold">Email:</span> {registrationData.email}</p>
+                                <p><span className="font-semibold">Phone:</span> {registrationData.registrationDetails.phone}</p>
+                                <p><span className="font-semibold">Branch:</span> {registrationData.registrationDetails.branch}</p>
+                                <p><span className="font-semibold">Batch:</span> {registrationData.registrationDetails.batch}</p>
+                                <p><span className="font-semibold">Roll No:</span> {registrationData.registrationDetails.rollno}</p>
+                                <p><span className="font-semibold">Registration Date:</span> {new Date(registrationData.timestamp).toLocaleDateString()}</p>
+                            </div>
+                        </div>
+                        <Button
+                            onClick={() => router.push('/events')}
+                            className="w-full transition-all bg-gradient hover:bg-gradient hover:scale-105"
+                        >
+                            Back to Events
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+        )
+    }
+
     return (
         <div className="min-h-screen p-8 bg-blue-50">
             <Card className="max-w-2xl mx-auto my-8 shadow-xl md:my-20">
                 <CardHeader>
-                    <CardTitle className="text-3xl text-gradient">Register for {event.name}</CardTitle>
-                    <hr className='border-2 border-blue-500 ' />
+                    <CardTitle className="text-3xl text-gradient">Register For the Event</CardTitle>
+                    <hr className='border-2 border-blue-500' />
                 </CardHeader>
                 <CardContent className="space-y-4">
                     <form onSubmit={handleSubmit} className="space-y-4">
@@ -103,8 +151,10 @@ export default function EventRegistrationPage() {
                                     id="email"
                                     name="email"
                                     type="email"
+                                    pattern="[a-zA-Z0-9._%+-]+@nist\.edu$"
+                                    title="Please enter a valid NIST email address (e.g. example@nist.edu)"
                                     required
-                                    placeholder="Enter your email address"
+                                    placeholder="example@nist.edu"
                                 />
                             </div>
 

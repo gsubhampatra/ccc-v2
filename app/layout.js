@@ -10,30 +10,43 @@ const poppins = Poppins({
 });
 
 export const metadata = {
-  title: "NIST CCC",
-  description: "NIST Cloud Computing Club",
-  image: "https://i.ibb.co/C0DGCkd/111.png",
+  title: {
+    default: "Cloud Computing Club",
+    template: "%s | CCC",
+  },
+  description:
+    "Official website of NIST Cloud Computing Club, fostering innovation and learning in cloud technologies.",
+  keywords: [
+    "cloud computing",
+    "NIST",
+    "technology club",
+    "AWS",
+    "Azure",
+    "cloud native",
+  ],
+  authors: [{ name: "Cloud Computing Club" }],
+  creator: "Cloud Computing Club",
+  publisher: "Cloud Computing Club",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: "Cloud Computing Club",
+    description: "Official website of NIST Cloud Computing Club",
+    url: "https://cloudcomputingclub.co.in",
+    siteName: "Cloud Computing Club",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cloud Computing Club",
+    description: "Official website of NIST Cloud Computing Club",
+  },
 };
 
 export default function RootLayout({ children }) {
-  if (typeof window !== "undefined") {
-    document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-    document.addEventListener("keydown", (e) => {
-      if (
-        e.key === "F12" ||
-        (e.ctrlKey && e.shiftKey && (e.key === "I" || e.key === "J")) ||
-        (e.ctrlKey && e.key === "U")
-      ) {
-        e.preventDefault();
-      }
-    });
-
-    // Clear console
-    console.clear();
-    // Disable console.log and other console methods
-    console.log = console.warn = console.error = () => {};
-  }
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <link rel="icon" href="https://i.ibb.co/C0DGCkd/111.png" />

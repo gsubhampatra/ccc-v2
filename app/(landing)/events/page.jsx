@@ -51,7 +51,7 @@ export default function EventsPage() {
         Our Events
       </h1>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-        {events.map((event, index) => (
+        {events.slice().reverse().map((event, index) => (
           <Card
             key={event.id}
             className="overflow-hidden transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105"

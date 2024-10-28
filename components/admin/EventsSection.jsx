@@ -86,8 +86,7 @@ export default function EventsSection() {
     const handleEdit = (event) => {
         setEditingEvent(event)
         form.reset({
-            ...event,
-            date: '',
+            ...event
         })
     }
 
@@ -148,7 +147,7 @@ export default function EventsSection() {
                                 <FormItem>
                                     <FormLabel>Date</FormLabel>
                                     <FormControl>
-                                        <Input {...field} type="date" />
+                                        <Input type="text" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -157,7 +156,7 @@ export default function EventsSection() {
                                 <FormItem>
                                     <FormLabel>Time</FormLabel>
                                     <FormControl>
-                                        <Input {...field} type="time" />
+                                        <Input type="text" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>

@@ -1,5 +1,21 @@
 import React from 'react';
 
+export const metadata = {
+  title: 'Developers | Cloud Computing Club NIST',
+  description: 'Meet the developers behind the Cloud Computing Club NIST website - talented students building innovative cloud solutions.',
+  keywords: 'developers, NIST University, cloud computing club, web development, full stack, serverless',
+  openGraph: {
+    title: 'Developers | Cloud Computing Club NIST',
+    description: 'Meet the developers behind the Cloud Computing Club NIST website - talented students building innovative cloud solutions.',
+    images: [{
+      url: 'https://avatars.githubusercontent.com/gsubhampatra',
+      width: 800,
+      height: 600,
+      alt: 'Cloud Computing Club NIST Developers'
+    }]
+  }
+}
+
 const Developer = () => {
   const developers = [
     {
@@ -28,6 +44,8 @@ const Developer = () => {
     },
   ];
 
+
+
   return (
     <>
       <h2 className="mt-20 text-3xl font-bold text-center text-gradient">Creators</h2>
@@ -36,7 +54,7 @@ const Developer = () => {
           <div
             key={developer.name}
             className="relative flex flex-col items-center justify-center p-2 overflow-hidden border-t-4 rounded-lg shadow-lg border-gradient-bg"
-           
+
           >
             <img
               src={developer.imageUrl}
@@ -52,7 +70,7 @@ const Developer = () => {
         ))}
       </section>
 
-     
+
     </>
   );
 };

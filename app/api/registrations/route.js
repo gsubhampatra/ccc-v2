@@ -37,7 +37,11 @@ export async function POST(request) {
     addToEmailQueue({
       to: registration.email,
       subject: `Registration Confirmation for ${registration.event.title}`,
-      registrationDetails: registration.registrationDetails,
+      registrationDetails: {
+        ...registration.registrationDetails,
+        name: registration.name,
+        email: registration.email,
+      },
       eventDetails: registration.event,
     });
 

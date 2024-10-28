@@ -26,9 +26,11 @@
     "@radix-ui/react-switch": "^1.1.1",
     "@radix-ui/react-tabs": "^1.1.1",
     "@tanstack/react-query": "^5.59.16",
+    "@types/canvas-confetti": "^1.6.4",
     "aos": "^2.3.4",
     "better-queue": "^3.8.12",
     "better-queue-memory": "^1.0.4",
+    "canvas-confetti": "^1.9.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "framer-motion": "^11.11.1",
@@ -43,12 +45,16 @@
     "react-icons": "^5.3.0",
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
+    "xlsx": "^0.18.5",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@types/node": "22.8.1",
+    "@types/react": "18.3.12",
     "postcss": "^8",
     "prisma": "^5.21.1",
-    "tailwindcss": "^3.4.1"
+    "tailwindcss": "^3.4.1",
+    "typescript": "5.6.3"
   },
   "prisma": {
     "schema": "prisma/schema.prisma"

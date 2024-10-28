@@ -23,7 +23,7 @@ export default function ProjectCard({ project }) {
                             href={project.githubLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-xl bg-slate-800 hover:bg-slate-700"
+                            className="inline-flex z-[20] items-center px-4 py-2 text-sm font-medium text-white transition-colors rounded-xl bg-slate-800 hover:bg-slate-700"
                         >
                             <FaGithub className="mr-2" /> GitHub
                         </a>
@@ -34,7 +34,7 @@ export default function ProjectCard({ project }) {
                             href={project.liveDemoLink}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-xl hover:bg-blue-700"
+                            className="inline-flex z-[20] items-center px-4 py-2 text-sm font-medium text-white transition-colors bg-blue-600 rounded-xl hover:bg-blue-700"
                         >
                             <FaExternalLinkAlt className="mr-2" /> Live Demo
                         </a>

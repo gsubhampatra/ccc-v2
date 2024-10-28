@@ -13,9 +13,11 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { toast } from "@/hooks/use-toast"
 import { registerForEvent, getRegistrations, updateRegistration, deleteRegistration, getEvents } from '@/lib/api'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import * as XLSX from 'xlsx'
 
 export default function RegistrationsSection() {
   const [editingRegistration, setEditingRegistration] = useState(null)
+  const [selectedEventId, setSelectedEventId] = useState('all')
   const queryClient = useQueryClient()
 
   const { data: registrations, isLoading: registrationsLoading } = useQuery({
@@ -37,6 +39,47 @@ export default function RegistrationsSection() {
       registrationDetails: '',
     },
   })
+
+  // Filter registrations based on selected event
+  const filteredRegistrations = registrations?.filter(registration => 
+    selectedEventId === 'all' ? true : registration.eventId === selectedEventId
+  )
+
+  // Export to Excel function
+  const exportToExcel = () => {
+    try {
+      const exportData = filteredRegistrations.map(registration => ({
+        Name: registration.name,
+        Email: registration.email,
+        Event: events?.find(e => e.id === registration.eventId)?.title || 'Unknown Event',
+        Phone: registration.registrationDetails.phone,
+        Branch: registration.registrationDetails.branch,
+        Batch: registration.registrationDetails.batch,
+        'Roll No': registration.registrationDetails.rollno,
+        'Registration Date': new Date(registration.registeredAt).toLocaleDateString(),
+      }))
+
+      const ws = XLSX.utils.json_to_sheet(exportData)
+      const wb = XLSX.utils.book_new()
+      XLSX.utils.book_append_sheet(wb, ws, 'Registrations')
+      
+      // Generate filename with event name and date
+      const eventName = selectedEventId === 'all' ? 'All-Events' : 
+        events?.find(e => e.id === selectedEventId)?.title.replace(/\s+/g, '-') || 'Event'
+      const date = new Date().toISOString().split('T')[0]
+      const fileName = `${eventName}-Registrations-${date}.xlsx`
+
+      XLSX.writeFile(wb, fileName)
+      
+      toast({ title: "Success", description: "Registrations exported successfully" })
+    } catch (error) {
+      toast({ 
+        title: "Error", 
+        description: "Failed to export registrations", 
+        variant: "destructive" 
+      })
+    }
+  }
 
   const registerMutation = useMutation({
     mutationFn: registerForEvent,
@@ -107,7 +150,34 @@ export default function RegistrationsSection() {
         <CardDescription>Manage event registrations</CardDescription>
       </CardHeader>
       <CardContent>
+        {/* Event Filter and Export Button */}
+        <div className="flex items-center justify-between mb-6">
+          <Select
+            value={selectedEventId}
+            onValueChange={setSelectedEventId}
+          >
+            <SelectTrigger className="w-[200px]">
+              <SelectValue placeholder="Filter by Event" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Events</SelectItem>
+              {events?.map(event => (
+                <SelectItem key={event.id} value={event.id}>
+                  {event.title}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
 
+          <Button 
+            onClick={exportToExcel}
+            className="bg-green-600 hover:bg-green-700"
+          >
+            Export to Excel
+          </Button>
+        </div>
+
+        {/* Registration Form */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
             <FormField
@@ -153,22 +223,24 @@ export default function RegistrationsSection() {
             <Button className="text-white rounded-md bg-gradient" type="submit">Submit</Button>
             {editingRegistration && <Button className="mx-2 rounded-md" variant="destructive" onClick={handleCancelEdit}>Cancel</Button>}
           </form>
-
         </Form>
 
-
-
-        <h3 className="mt-8 mb-4 text-xl font-semibold">Existing Registrations</h3>
-        {registrations && registrations.length > 0 ? (
+        {/* Registrations List */}
+        <h3 className="mt-8 mb-4 text-xl font-semibold">
+          Registrations {selectedEventId !== 'all' && `for ${events?.find(e => e.id === selectedEventId)?.title}`}
+          {filteredRegistrations?.length > 0 && ` (${filteredRegistrations.length})`}
+        </h3>
+        
+        {filteredRegistrations && filteredRegistrations.length > 0 ? (
           <ScrollArea className="h-[400px] w-full rounded-md border">
             <div className="p-4">
-              {registrations.length > 0 && registrations.map((registration, i) => (
+              {filteredRegistrations.map((registration, i) => (
                 <Card key={i} className="p-4 mb-4">
                   <h4 className="text-lg font-semibold">{registration.name}</h4>
                   <p className="text-sm text-gray-500">{registration.email}</p>
                   <p><strong>Event:</strong> {events?.find(e => e.id === registration.eventId)?.title || 'Unknown Event'}</p>
                   {Object.entries(registration.registrationDetails).map(([key, value]) => (
-                    <p><strong>{key}:</strong> {value}</p>
+                    <p key={key}><strong>{key}:</strong> {value}</p>
                   ))}
                   <div className="flex justify-end mt-4 space-x-2">
                     <Button variant="outline" onClick={() => handleEdit(registration)}>Edit</Button>

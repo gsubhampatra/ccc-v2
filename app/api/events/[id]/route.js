@@ -3,8 +3,9 @@ import prisma from "@/lib/prisma";
 
 export async function GET(request, { params }) {
   try {
+    const { id } = await params;
     const event = await prisma.event.findUnique({
-      where: { id: await params.id },
+      where: { id },
     });
     if (event) {
       return NextResponse.json(event);
@@ -22,8 +23,9 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const data = await request.json();
+    const { id } = await params;
     const updatedEvent = await prisma.event.update({
-      where: { id: await params.id },
+      where: { id },
       data,
     });
     return NextResponse.json(updatedEvent);
