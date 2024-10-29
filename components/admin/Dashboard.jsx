@@ -20,7 +20,7 @@ const sections = [
   { name: 'Winners', component: Winners },
   { name: 'Hiring Status', component: HiringStatus },
   { name: 'Videos', component: Videos },
-  {name:'Projects', component: Projects}
+  { name: 'Projects', component: Projects }
 ]
 
 export default function Dashboard() {
@@ -51,7 +51,7 @@ export default function Dashboard() {
 
         {/* Mobile sidebar toggle */}
         <button
-          className="fixed z-20 p-2 bg-gray-200 rounded md:hidden top-4 left-4"
+          className="fixed z-20 p-2 text-white rounded-full bg-gradient md:hidden top-4 left-4"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
         >
           ☰
@@ -60,12 +60,12 @@ export default function Dashboard() {
         {/* Mobile sidebar */}
         {isSidebarOpen && (
           <div className="fixed inset-0 z-10 p-4 overflow-y-auto bg-gray-100 md:hidden">
-            <h2 className="mb-4 text-xl font-semibold tetx-gradeint">Admin Panel</h2>
+            <h2 className="mb-4 text-xl font-semibold text-gradeint">Admin Panel</h2>
             <ul className="space-y-2">
               {sections.map((section) => (
                 <li key={section.name}>
                   <button
-                    className={`w-full p-2 text-left rounded hover:bg-gray-200 ${activeSection === section.name ? 'bg-gray-200' : ''}`}
+                    className={`w-full p-2 text-left  rounded hover:bg-gradient hover:text-white ${activeSection === section.name ? 'bg-gradient text-white' : ''}`}
                     onClick={() => {
                       setActiveSection(section.name)
                       setIsSidebarOpen(false)

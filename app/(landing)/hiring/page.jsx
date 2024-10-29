@@ -1,5 +1,6 @@
 'use client'
 
+import Loader from '@/components/Loader';
 import { getHiringStatus } from '@/lib/api';
 import { useEffect, useState } from 'react';
 
@@ -11,6 +12,7 @@ export default function HiringPage() {
     useEffect(() => {
         const fetchHiringStatus = async () => {
             try {
+                setIsLoading(true)
                 const { status } = await getHiringStatus()
                 setIsHiringOpen(status)
             } catch (error) {
@@ -23,11 +25,13 @@ export default function HiringPage() {
         fetchHiringStatus()
     }, [])
 
-
+    if (isLoading) {
+        return <Loader />
+    }
 
     return (
         <div className="flex items-center justify-center min-h-[75vh] my-20 bg-slate-50">
-        
+
             <div className="max-w-2xl p-8 text-center bg-white rounded-lg shadow-lg">
                 {isHiringOpen ? (
                     <div>
@@ -81,7 +85,7 @@ export default function HiringPage() {
                             Thank you for your interest in joining the Cloud Computing Club. Currently, we are not hiring. Please check back later!
                         </p>
 
-                       
+
                     </div>
                 )}
             </div>

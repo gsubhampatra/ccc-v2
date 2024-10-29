@@ -1,18 +1,37 @@
 import React from 'react';
 
 export const metadata = {
-  title: 'Developers | Cloud Computing Club NIST',
+  title: 'Developers ',
   description: 'Meet the developers behind the Cloud Computing Club NIST website - talented students building innovative cloud solutions.',
   keywords: 'developers, NIST University, cloud computing club, web development, full stack, serverless',
   openGraph: {
-    title: 'Developers | Cloud Computing Club NIST',
+    title: 'Developers',
     description: 'Meet the developers behind the Cloud Computing Club NIST website - talented students building innovative cloud solutions.',
     images: [{
       url: 'https://avatars.githubusercontent.com/gsubhampatra',
       width: 800,
       height: 600,
       alt: 'Cloud Computing Club NIST Developers'
-    }]
+    },
+    {
+      url: 'https://avatars.githubusercontent.com/u/52108126?v=4',
+      width: 800,
+      height: 600,
+      alt: 'Cloud Computing Club NIST Developers'
+    },
+    {
+      url: 'ttps://avatars.githubusercontent.com/u/70655824?v=4',
+      width: 800,
+      height: 600,
+      alt: 'Cloud Computing Club NIST Developers'
+    },
+    {
+      url: 'https://avatars.githubusercontent.com/u/66204882?v=4',
+      width: 800,
+      height: 600,
+      alt: 'Cloud Computing Club NIST Developers'
+    }
+    ]
   }
 }
 

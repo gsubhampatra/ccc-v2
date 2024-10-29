@@ -8,6 +8,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/hooks/use-toast"
 import { Confetti } from "@/components/ui/confetti"
+import { registrationSchema } from '@/lib/schemas'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 export default function EventRegistrationPage() {
     const params = useParams()
@@ -16,6 +19,19 @@ export default function EventRegistrationPage() {
     const [event, setEvent] = useState(null)
     const [registered, setRegistered] = useState(false)
     const [registrationData, setRegistrationData] = useState(null)
+
+    const form = useForm({
+        resolver: zodResolver(registrationSchema),
+        defaultValues: {
+            name: '',
+            email: '',
+            phone: '',
+            branch: '',
+            batch: '',
+            rollno: '',
+            eventId: params.id
+        }
+    })
 
     useEffect(() => {
         const currentEvent = params.id
@@ -32,23 +48,20 @@ export default function EventRegistrationPage() {
         }
     }, [params.id, router])
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
+    const handleSubmit = async (data) => {
         setLoading(true)
 
         try {
-            const formData = new FormData(e.target)
             const newRegistrationData = {
                 eventId: params.id,
-                name: formData.get('name'),
-                email: formData.get('email'),
+                name: data.name,
+                email: data.email,
                 registrationDetails: {
-                    phone: formData.get('phone'),
-                    branch: formData.get('branch'),
-                    batch: formData.get('batch'),
-                    rollno: formData.get('rollno'),
+                    phone: data.phone,
+                    branch: data.branch,
+                    batch: data.batch,
+                    rollno: data.rollno,
                 },
-                timestamp: new Date().toISOString()
             }
 
             const response = await fetch('/api/registrations', {
@@ -79,7 +92,7 @@ export default function EventRegistrationPage() {
         } catch (error) {
             toast({
                 title: "Registration Failed",
-                description: "There was an error processing your registration. Please try again.",
+                description: error.message || "There was an error processing your registration. Please try again.",
                 variant: "destructive"
             })
         } finally {
@@ -110,7 +123,6 @@ export default function EventRegistrationPage() {
                                 <p><span className="font-semibold">Branch:</span> {registrationData.registrationDetails.branch}</p>
                                 <p><span className="font-semibold">Batch:</span> {registrationData.registrationDetails.batch}</p>
                                 <p><span className="font-semibold">Roll No:</span> {registrationData.registrationDetails.rollno}</p>
-                                <p><span className="font-semibold">Registration Date:</span> {new Date(registrationData.timestamp).toLocaleDateString()}</p>
                             </div>
                         </div>
                         <Button
@@ -133,69 +145,73 @@ export default function EventRegistrationPage() {
                     <hr className='border-2 border-blue-500' />
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <form onSubmit={handleSubmit} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
                         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                             <div className="space-y-2">
                                 <Label htmlFor="name">Full Name</Label>
                                 <Input
-                                    id="name"
-                                    name="name"
-                                    required
+                                    {...form.register('name')}
                                     placeholder="Enter your full name"
                                 />
+                                {form.formState.errors.name && (
+                                    <p className="text-sm text-red-500">{form.formState.errors.name.message}</p>
+                                )}
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="email">Email Address</Label>
                                 <Input
-                                    id="email"
-                                    name="email"
+                                    {...form.register('email')}
                                     type="email"
-                                    pattern="[a-zA-Z0-9._%+-]+@nist\.edu$"
-                                    title="Please enter a valid NIST email address (e.g. example@nist.edu)"
-                                    required
                                     placeholder="example@nist.edu"
                                 />
+                                {form.formState.errors.email && (
+                                    <p className="text-sm text-red-500">{form.formState.errors.email.message}</p>
+                                )}
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="phone">Phone Number</Label>
                                 <Input
-                                    id="phone"
-                                    name="phone"
-                                    required
+                                    {...form.register('phone')}
                                     placeholder="Enter your phone number"
                                 />
+                                {form.formState.errors.phone && (
+                                    <p className="text-sm text-red-500">{form.formState.errors.phone.message}</p>
+                                )}
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="branch">Branch</Label>
                                 <Input
-                                    id="branch"
-                                    name="branch"
-                                    required
+                                    {...form.register('branch')}
                                     placeholder="Enter your branch"
                                 />
+                                {form.formState.errors.branch && (
+                                    <p className="text-sm text-red-500">{form.formState.errors.branch.message}</p>
+                                )}
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="batch">Batch</Label>
                                 <Input
-                                    id="batch"
-                                    name="batch"
-                                    required
+                                    {...form.register('batch')}
                                     placeholder="Enter your batch"
                                 />
+                                {form.formState.errors.batch && (
+                                    <p className="text-sm text-red-500">{form.formState.errors.batch.message}</p>
+                                )}
                             </div>
 
                             <div className="space-y-2">
                                 <Label htmlFor="rollno">Roll No</Label>
                                 <Input
-                                    id="rollno"
-                                    name="rollno"
-                                    required
+                                    {...form.register('rollno')}
                                     placeholder="Enter your roll number"
                                 />
+                                {form.formState.errors.rollno && (
+                                    <p className="text-sm text-red-500">{form.formState.errors.rollno.message}</p>
+                                )}
                             </div>
                         </div>
 

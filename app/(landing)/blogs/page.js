@@ -1,10 +1,15 @@
 import Head from "next/head";
 import React from "react";
+
+export const metadata = {
+  title: 'Blogs',
+  description: 'Read our latest blogs and stay updated with the latest trends in cloud computing.',
+}
+
 const Blogs = () => {
   return (
     <>
       <Head>
-        <title>Blogs | NIST CCC </title>
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"

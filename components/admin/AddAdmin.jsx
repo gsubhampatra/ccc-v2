@@ -118,7 +118,7 @@ export default function AddAdmin() {
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
-                    <Button type="submit">Add Admin</Button>
+                    <Button type="submit" className="rounded-xl bg-gradient">Add Admin</Button>
                 </form>
 
                 <div className="mt-8">

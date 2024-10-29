@@ -1,6 +1,7 @@
 // app/layout.js
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
@@ -54,7 +55,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${inter.className} ${poppins.className} overflow-x-hidden`}
       >
-        {children}
+        {children} 
+        <Toaster />
+
       </body>
     </html>
   );

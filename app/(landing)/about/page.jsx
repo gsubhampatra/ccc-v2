@@ -1,5 +1,10 @@
 import React from 'react';
 
+export const metadata = {
+  title: 'About Us',
+  description: 'Learn about the Cloud Computing Club at NIST University and our mission to empower students with knowledge of cloud computing and its transformative potential in modern-day computing.',
+}
+
 const aboutData = [
   {
     title: 'Serverless Computing',

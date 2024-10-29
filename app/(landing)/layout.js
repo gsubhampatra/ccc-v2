@@ -3,19 +3,12 @@ import { Inter, Poppins } from "next/font/google";
 import "@/app/globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-poppins",
 });
-
-export const metadata = {
-  title: "NIST CCC",
-  description: "NIST Cloud Computing Club",
-  image: "https://i.ibb.co/C0DGCkd/111.png",
-};
 
 export default function LandingLayout({ children }) {
   return (

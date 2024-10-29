@@ -32,7 +32,6 @@ export default function EventsSection() {
             time: '',
             venue: '',
             posterUrl: '',
-            registrationLink: '',
             whatsappGroupUrl: '',
             isRegistrationOpen: false,
             type: '',
@@ -181,15 +180,7 @@ export default function EventsSection() {
                                     <FormMessage />
                                 </FormItem>
                             )} />
-                            <FormField control={form.control} name="registrationLink" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Registration Link</FormLabel>
-                                    <FormControl>
-                                        <Input {...field} />
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )} />
+                           
                         </div>
                         <FormField control={form.control} name="whatsappGroupUrl" render={({ field }) => (
                             <FormItem>
@@ -222,7 +213,7 @@ export default function EventsSection() {
                                     Cancel Edit
                                 </Button>
                             )}
-                            <Button type="submit" className="bg-gradient">
+                            <Button type="submit" className="bg-gradient rounded-xl">
                                 {editingEvent ? 'Update Event' : 'Add Event'}
                             </Button>
                         </div>

@@ -111,7 +111,7 @@ const Navigation = () => {
             </Sheet>
             <button
               onClick={scrollToContact}
-              className="hidden px-4 py-2 text-white bg-blue-600 rounded-xl md:block hover:bg-blue-700"
+              className="hidden px-4 py-2 font-semibold border-2 border-blue-600 text-gradient rounded-xl md:block hover:bg-blue-600 hover:scale-105"
             >
               Contact
             </button>

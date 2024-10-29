@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Send } from 'lucide-react'
+import { toast } from "@/hooks/use-toast"
 
 export default function Footer() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function Footer() {
     email: '',
     message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -20,10 +22,44 @@ export default function Footer() {
     }))
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Handle form submission logic here
-    console.log('Form submitted:', formData)
+    setIsSubmitting(true)
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to send message')
+      }
+
+      toast({
+        title: "Success",
+        description: "Your message has been sent successfully!",
+      })
+
+      // Reset form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        message: '',
+      })
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -42,7 +78,7 @@ export default function Footer() {
               <span className="text-2xl font-bold">NIST CCC</span>
             </div>
             <nav className="grid grid-cols-2 gap-4">
-              {['Members', 'Events', 'Privacy-Policy', 'Tech', 'Blogs', 'Hiring', 'Developers'].map((item) => (
+              {['Members', 'Events', 'Privacy-Policy', 'Tech', 'Blogs', 'Hiring', 'Developers', 'Gallery', 'Projects'].map((item) => (
                 <motion.a
                   key={item}
                   href={`/${item.toLowerCase()}`}
@@ -70,6 +106,7 @@ export default function Footer() {
                   onChange={handleInputChange}
                   className="w-1/2 px-4 py-2 rounded-lg bg-sky-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
                   required
+                  disabled={isSubmitting}
                 />
                 <input
                   type="text"
@@ -79,6 +116,7 @@ export default function Footer() {
                   onChange={handleInputChange}
                   className="w-1/2 px-4 py-2 rounded-lg bg-sky-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
               <input
@@ -89,6 +127,7 @@ export default function Footer() {
                 onChange={handleInputChange}
                 className="w-full px-4 py-2 rounded-md bg-sky-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
                 required
+                disabled={isSubmitting}
               />
               <textarea
                 name="message"
@@ -97,14 +136,16 @@ export default function Footer() {
                 onChange={handleInputChange}
                 className="w-full h-32 px-4 py-2 rounded-md resize-none bg-sky-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
                 required
+                disabled={isSubmitting}
               ></textarea>
               <motion.button
                 type="submit"
-                className="flex items-center justify-center w-full px-4 py-2 text-white transition-colors duration-200 bg-blue-500 rounded-xl hover:bg-blue-600"
+                className="flex items-center justify-center w-full px-4 py-2 text-white transition-colors duration-200 bg-blue-500 rounded-xl hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                disabled={isSubmitting}
               >
-                Submit
+                {isSubmitting ? 'Sending...' : 'Submit'}
                 <Send className="w-4 h-4 ml-2" />
               </motion.button>
             </form>
