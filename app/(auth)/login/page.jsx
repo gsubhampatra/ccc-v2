@@ -32,6 +32,7 @@ export default function LoginPage() {
                 toast({ title: "Error", description: data.message, variant: "destructive" })
             }
         } catch (error) {
+            console.log(error)
             toast({ title: "Error", description: "An error occurred", variant: "destructive" })
         } finally {
             setLoading(false)
@@ -44,7 +45,7 @@ export default function LoginPage() {
                 className="flex items-center justify-center min-h-screen bg-black"
 
             >
-                <div onDoubleClick={() => setShowLogin(true)}  className="text-2xl text-gray-100 font-mono select-none">404 Not Found</div>
+                <div onDoubleClick={() => setShowLogin(true)}  className="font-mono text-2xl text-gray-100 select-none">404 Not Found</div>
             </div>
         )
     }

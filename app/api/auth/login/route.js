@@ -22,14 +22,14 @@ export async function POST(request) {
     });
     response.cookies.set("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: false,
     });
 
     return response;
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
-      { success: false, message: "An error occurred" },
+      { success: false, message: error.message },
       { status: 500 }
     );
   }

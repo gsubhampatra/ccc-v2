@@ -29,6 +29,8 @@ export default function EventRegistrationPage() {
             branch: '',
             batch: '',
             rollno: '',
+            busStop: '',
+            utrNumber: '',
             eventId: params.id
         }
     })
@@ -48,7 +50,7 @@ export default function EventRegistrationPage() {
         }
     }, [params.id, router])
 
-    const handleSubmit = async (data) => {
+    const onSubmit = async (data) => {
         setLoading(true)
 
         try {
@@ -61,6 +63,8 @@ export default function EventRegistrationPage() {
                     branch: data.branch,
                     batch: data.batch,
                     rollno: data.rollno,
+                    utrNumber: data.utrNumber,
+                    busStop: data.busStop || null,
                 },
             }
 
@@ -123,6 +127,7 @@ export default function EventRegistrationPage() {
                                 <p><span className="font-semibold">Branch:</span> {registrationData.registrationDetails.branch}</p>
                                 <p><span className="font-semibold">Batch:</span> {registrationData.registrationDetails.batch}</p>
                                 <p><span className="font-semibold">Roll No:</span> {registrationData.registrationDetails.rollno}</p>
+                                <p><span className="font-semibold">UTR Number:</span> {registrationData.registrationDetails.utrNumber}</p>
                             </div>
                         </div>
                         <Button
@@ -145,7 +150,7 @@ export default function EventRegistrationPage() {
                     <hr className='border-2 border-blue-500' />
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                             <div className="space-y-2">
                                 <Label htmlFor="name">Full Name</Label>
@@ -212,6 +217,45 @@ export default function EventRegistrationPage() {
                                 {form.formState.errors.rollno && (
                                     <p className="text-sm text-red-500">{form.formState.errors.rollno.message}</p>
                                 )}
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="busStop">Bus Stop (Optional)</Label>
+                                <Input
+                                    {...form.register('busStop')}
+                                    placeholder="Enter your bus stop if you're a local"
+                                />
+                            </div>
+
+                            <div className="space-y-2">
+                                <Label htmlFor="utrNumber">UTR Number (12 digits)</Label>
+                                <Input
+                                    {...form.register('utrNumber', {
+                                        pattern: {
+                                            value: /^\d{12}$/,
+                                            message: "UTR number must be exactly 12 digits"
+                                        }
+                                    })}
+                                    placeholder="Enter 12-digit UTR number"
+                                />
+                                {form.formState.errors.utrNumber && (
+                                    <p className="text-sm text-red-500">{form.formState.errors.utrNumber.message}</p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="flex flex-col items-center justify-center p-4 border-2 border-dashed rounded-lg">
+                                <img 
+                                    src="https://i.ibb.co/Srvsd02/Whats-App-Image-2024-11-05-at-12-40-04-PM.jpg" 
+                                    alt="Payment QR Code"
+                                    width={200}
+                                    height={200}
+                                    className="mb-2"
+                                />
+                                <p className="text-sm text-gray-500 text-center">
+                                    Scan this QR code to make the payment
+                                </p>
                             </div>
                         </div>
 
