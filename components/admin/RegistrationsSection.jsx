@@ -225,6 +225,7 @@ export default function RegistrationsSection() {
         <CardDescription>Manage event registrations</CardDescription>
       </CardHeader>
       <CardContent>
+
         {/* Form */}
         <form onSubmit={editingRegistration ? handleUpdate : handleCreate} className="space-y-4">
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
@@ -385,6 +386,9 @@ export default function RegistrationsSection() {
             >
               Export to Excel
             </Button>
+          </div>
+          <div className="mb-4 text-xl font-bold text-gradient">
+            Total Registrations: {registrations?.filter(reg => selectedEventId === 'all' ? true : reg.eventId === selectedEventId).length || 0}
           </div>
 
           <ScrollArea className="h-[400px] w-full rounded-md border">
