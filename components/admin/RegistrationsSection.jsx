@@ -50,12 +50,33 @@ export default function RegistrationsSection() {
     }))
   }
 
-  // Handle event selection
-  const handleEventSelect = (value) => {
-    setFormData(prev => ({
-      ...prev,
-      eventId: value
+  // Export to Excel function
+  const exportToExcel = (registrations, events) => {
+    const filteredRegistrations = registrations.filter(reg => 
+      selectedEventId === 'all' ? true : reg.eventId === selectedEventId
+    )
+
+    const data = filteredRegistrations.map(reg => ({
+      'Name': reg.name,
+      'Email': reg.email,
+      'Event': events?.find(e => e.id === reg.eventId)?.title || 'Unknown Event',
+      'Phone': reg.registrationDetails?.phone || '',
+      'Branch': reg.registrationDetails?.branch || '',
+      'Batch': reg.registrationDetails?.batch || '',
+      'Roll No': reg.registrationDetails?.rollno || '',
+      'Bus Stop': reg.registrationDetails?.busStop || '',
+      'UTR Number': reg.registrationDetails?.utrNumber || ''
     }))
+
+    const ws = XLSX.utils.json_to_sheet(data)
+    const wb = XLSX.utils.book_new()
+    XLSX.utils.book_append_sheet(wb, ws, 'Registrations')
+    
+    // Generate filename with current date
+    const date = new Date().toISOString().split('T')[0]
+    const filename = `registrations_${date}.xlsx`
+    
+    XLSX.writeFile(wb, filename)
   }
 
   // Handle create submission
