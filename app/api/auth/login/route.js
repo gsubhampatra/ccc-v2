@@ -14,22 +14,25 @@ export async function POST(request) {
       );
     }
 
-    const token = generateToken({ id: admin.id, email: admin.email });
+    const token = await generateToken({ id: admin.id, email: admin.email });
 
     const response = NextResponse.json({
       success: true,
       message: "Logged in successfully",
     });
+
     response.cookies.set("token", token, {
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: 'strict',
+      path: '/',
     });
 
     return response;
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
-      { success: false, message: error.message },
+      { success: false, message: "An error occurred during login" },
       { status: 500 }
     );
   }

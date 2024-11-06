@@ -7,16 +7,16 @@ export async function middleware(request) {
   if (request.nextUrl.pathname.startsWith("/admin")) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
-    } else {
-      try {
-        const { verified } = verifyToken(token);
-        if (!verified) {
-          return NextResponse.redirect(new URL("/login", request.url));
-        }
-        return NextResponse.next();
-      } catch {
+    }
+
+    try {
+      const { verified } = await verifyToken(token);
+      if (!verified) {
         return NextResponse.redirect(new URL("/login", request.url));
       }
+    } catch (error) {
+      console.error("Token verification error:", error);
+      return NextResponse.redirect(new URL("/login", request.url));
     }
   }
 

@@ -26,13 +26,13 @@ export default function LoginPage() {
             })
             const data = await response.json()
 
-            if (data.success === true) {
+            if (data.success) {
                 router.push('/admin')
             } else {
                 toast({ title: "Error", description: data.message, variant: "destructive" })
             }
         } catch (error) {
-            console.log(error)
+            console.error("Login error:", error)
             toast({ title: "Error", description: "An error occurred", variant: "destructive" })
         } finally {
             setLoading(false)
@@ -41,11 +41,8 @@ export default function LoginPage() {
 
     if (!showLogin) {
         return (
-            <div
-                className="flex items-center justify-center min-h-screen bg-black"
-
-            >
-                <div onDoubleClick={() => setShowLogin(true)}  className="font-mono text-2xl text-gray-100 select-none">404 Not Found</div>
+            <div className="flex items-center justify-center min-h-screen bg-black">
+                <div onClick={() => setShowLogin(true)} className="font-mono text-2xl text-gray-100 select-none">404 Not Found</div>
             </div>
         )
     }
