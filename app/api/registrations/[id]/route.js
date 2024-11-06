@@ -28,8 +28,9 @@ export async function GET(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     const data = await request.json();
+    const {id} = await params;
     const updatedRegistration = await prisma.registration.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         name: data.name,
         email: data.email,
@@ -53,8 +54,9 @@ export async function PUT(request, { params }) {
 // Delete a single registration
 export async function DELETE(request, { params }) {
   try {
+    const {id} = params;
     await prisma.registration.delete({
-      where: { id: params.id },
+      where: { id: id },
     });
     return NextResponse.json({
       success: true,

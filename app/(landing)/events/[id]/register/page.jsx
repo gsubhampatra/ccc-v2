@@ -11,6 +11,7 @@ import { Confetti } from "@/components/ui/confetti"
 import { registrationSchema } from '@/lib/schemas'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { getEvent } from '@/lib/api'
 
 export default function EventRegistrationPage() {
     const params = useParams()
@@ -36,15 +37,29 @@ export default function EventRegistrationPage() {
     })
 
     useEffect(() => {
-        const currentEvent = params.id
-        if (currentEvent) {
-            setEvent(currentEvent)
-            // Check if already registered
-            const storedRegistrations = JSON.parse(localStorage.getItem('eventRegistrations') || '{}')
-            if (storedRegistrations[currentEvent]) {
-                setRegistered(true)
-                setRegistrationData(storedRegistrations[currentEvent])
+        const fetchEvent = async () => {
+            try {
+                const eventData = await getEvent(params.id)
+                setEvent(eventData)
+
+                // Check if already registered
+                const storedRegistrations = JSON.parse(localStorage.getItem('eventRegistrations') || '{}')
+                if (storedRegistrations[params.id]) {
+                    setRegistered(true)
+                    setRegistrationData(storedRegistrations[params.id])
+                }
+            } catch (error) {
+                toast({
+                    title: "Error",
+                    description: "Failed to fetch event details",
+                    variant: "destructive"
+                })
+                router.push('/events')
             }
+        }
+
+        if (params.id) {
+            fetchEvent()
         } else {
             router.push('/events')
         }
@@ -106,6 +121,27 @@ export default function EventRegistrationPage() {
 
     if (!event) {
         return <div>Loading...</div>
+    }
+
+    if (!event.isRegistrationOpen) {
+        return (
+            <div className="min-h-screen p-8 bg-blue-50">
+                <Card className="max-w-2xl mx-auto my-8 shadow-xl md:my-20">
+                    <CardHeader>
+                        <CardTitle className="text-2xl text-center text-red-500 ">Registration Closed 😢</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-center text-gray-600">Oops! You just missed it! The registration window has closed for now. Stay tuned for future opportunities! 🌟</p>
+                        <Button
+                            onClick={() => router.push('/events')}
+                            className="w-full mt-4 transition-all bg-gradient hover:bg-gradient hover:scale-105"
+                        >
+                            Back to Events
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+        )
     }
 
     if (registered && registrationData) {
@@ -253,7 +289,7 @@ export default function EventRegistrationPage() {
                                     height={200}
                                     className="mb-2"
                                 />
-                                <p className="text-sm text-gray-500 text-center">
+                                <p className="text-sm text-center text-gray-500">
                                     Scan this QR code to make the payment
                                 </p>
                             </div>
